@@ -1,0 +1,39 @@
+version: 2
+_defaults: &defaults
+  docker:
+    - image: circleci/golang:latest
+create-lock: &create-lock
+  name: Wait for earlier jobs of the same branch and workflow to complete before proceeding
+  command: |
+    # Possible enhancement: allow passing in an array of job names
+    ./create-lock.sh --branch $CIRCLE_BRANCH --job-name test1 echo "Waiting for job test1 from any previous workflows to complete.."
+    ./create-lock.sh --branch $CIRCLE_BRANCH --job-name test2 echo "Waiting for job test2 from any previous workflows to complete.."
+jobs:
+  test1:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: *create-lock
+      - run:
+          name: Run
+          command: |
+            echo "Running job $CIRCLE_JOB"
+            sleep 60
+            echo "Done!"
+  test2:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: *create-lock
+      - run:
+          name: Run
+          command: |
+            echo "Running job $CIRCLE_JOB"
+            sleep 160
+            echo "Done!"
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test1
+      - test2
