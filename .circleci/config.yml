@@ -3,7 +3,7 @@ _defaults: &defaults
   docker:
     - image: circleci/golang:latest
 create-lock: &create-lock
-  name: Wait for earlier jobs of the same branch and workflow to complete before proceeding
+  name: Wait for earlier jobs of the same branch and workflow name to complete before proceeding
   command: |
     # Possible enhancement: allow passing in an array of job names
     ./create-lock.sh --branch $CIRCLE_BRANCH --job-name test1 echo "Waiting for job test1 from any previous workflows to complete.."
