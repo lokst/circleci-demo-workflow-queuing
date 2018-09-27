@@ -1,3 +1,7 @@
+circleci-demo-workflow-queuing
+===============================
+[![CircleCI](https://circleci.com/gh/lokst/circleci-demo-workflow-queuing.svg?style=svg)](https://circleci.com/gh/lokst/circleci-demo-workflow-queuing)
+
 # Workflow Queuing Demo
 This project demonstrates how to effectively prevent jobs belonging to a workflow from proceeding while there are jobs still running from an earlier workflow of the same workflow name, in the same branch.
 
